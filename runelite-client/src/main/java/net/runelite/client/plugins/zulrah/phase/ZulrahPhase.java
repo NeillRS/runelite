@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.raidsZ.phase;
+package net.runelite.client.plugins.zulrah.phase;
 
 import net.runelite.api.NPC;
 import net.runelite.api.Prayer;

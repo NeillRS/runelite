@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.raidsZ;
+package net.runelite.client.plugins.zulrah;
 
 import net.runelite.api.NPC;
 import net.runelite.api.Prayer;

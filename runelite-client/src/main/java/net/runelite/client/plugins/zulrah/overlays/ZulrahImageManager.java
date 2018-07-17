@@ -1,8 +1,8 @@
-package net.runelite.client.plugins.raidsZ.overlays;
+package net.runelite.client.plugins.zulrah.overlays;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Prayer;
-import net.runelite.client.plugins.raidsZ.ZulrahPlugin;
+import net.runelite.client.plugins.zulrah.ZulrahPlugin;
 import net.runelite.client.plugins.zulrah.phase.ZulrahType;
 
 import javax.imageio.ImageIO;

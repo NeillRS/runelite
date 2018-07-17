@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.raidsV;
+package net.runelite.client.plugins.vorkath;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;

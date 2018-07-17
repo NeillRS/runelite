@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.raidsZ.phase;
+package net.runelite.client.plugins.zulrah.phase;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.coords.WorldPoint;

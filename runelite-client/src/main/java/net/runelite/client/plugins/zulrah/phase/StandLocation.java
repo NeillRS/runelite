@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.raidsZ.phase;
+package net.runelite.client.plugins.zulrah.phase;
 
 public enum StandLocation
 {

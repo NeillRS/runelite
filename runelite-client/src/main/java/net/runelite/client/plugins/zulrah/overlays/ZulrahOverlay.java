@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.raidsZ.overlays;
+package net.runelite.client.plugins.zulrah.overlays;
 
 import java.awt.*;
 import javax.annotation.Nullable;
@@ -9,8 +9,8 @@ import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.client.plugins.raidsZ.ZulrahInstance;
-import net.runelite.client.plugins.raidsZ.ZulrahPlugin;
+import net.runelite.client.plugins.zulrah.ZulrahInstance;
+import net.runelite.client.plugins.zulrah.ZulrahPlugin;
 import net.runelite.client.plugins.zulrah.phase.ZulrahPhase;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;

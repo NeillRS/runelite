@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.raidsZ.patterns;
+package net.runelite.client.plugins.zulrah.patterns;
 
 import net.runelite.api.Prayer;
 import net.runelite.client.plugins.zulrah.phase.StandLocation;

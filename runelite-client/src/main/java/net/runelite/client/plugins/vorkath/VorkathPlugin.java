@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.raidsV;
+package net.runelite.client.plugins.vorkath;
 
 import com.google.common.eventbus.Subscribe;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.raidsV;
+package net.runelite.client.plugins.vorkath;
 
 public class VorkathProjectileID {
 

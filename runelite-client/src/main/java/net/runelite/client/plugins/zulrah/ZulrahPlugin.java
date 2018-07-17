@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.raidsZ;
+package net.runelite.client.plugins.zulrah;
 
 import com.google.inject.Binder;
 import com.google.inject.Provides;

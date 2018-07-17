@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.raidsZ.patterns;
+package net.runelite.client.plugins.zulrah.patterns;
 
 import java.util.ArrayList;
 import java.util.List;
