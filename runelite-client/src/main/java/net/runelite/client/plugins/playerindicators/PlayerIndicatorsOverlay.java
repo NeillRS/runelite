@@ -1,27 +1,3 @@
-/*
- * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 package net.runelite.client.plugins.playerindicators;
 
 import java.awt.Color;
@@ -62,6 +38,7 @@ public class PlayerIndicatorsOverlay extends Overlay
 	public Dimension render(Graphics2D graphics)
 	{
 		playerIndicatorsService.forEachPlayer((player, color) -> renderPlayerOverlay(graphics, player, color));
+		playerIndicatorsService.checkForPlayers();
 		return null;
 	}
 
@@ -81,8 +58,8 @@ public class PlayerIndicatorsOverlay extends Overlay
 			return;
 		}
 
-		String name = actor.getName().replace('\u00A0', ' ');
 		int offset = actor.getLogicalHeight() + 40;
+		String name = actor.getName().replace('\u00A0', ' ');
 		Point textLocation = actor.getCanvasTextLocation(graphics, name, offset);
 
 		if (textLocation != null)
@@ -101,14 +78,18 @@ public class PlayerIndicatorsOverlay extends Overlay
 						int textHeight = graphics.getFontMetrics().getHeight() - graphics.getFontMetrics().getMaxDescent();
 						Point imageLocation = new Point(textLocation.getX() - width / 2 - 1, textLocation.getY() - textHeight / 2 - clanchatImage.getHeight() / 2);
 						OverlayUtil.renderImageLocation(graphics, imageLocation, clanchatImage);
-
-						// move text
 						textLocation = new Point(textLocation.getX() + width / 2, textLocation.getY());
 					}
 				}
 			}
+			if (config.drawCombatLevel()){
+				String combatLevel = Integer.toString(actor.getCombatLevel());
+				Point newTextLocation = new Point(textLocation.getX() + 15, textLocation.getY());
+				OverlayUtil.renderTextLocation(graphics, newTextLocation, combatLevel, color);
 
-			OverlayUtil.renderTextLocation(graphics, textLocation, name, color);
+			} else {
+				OverlayUtil.renderTextLocation(graphics, textLocation, name, color);
+			}
 		}
 	}
 }
