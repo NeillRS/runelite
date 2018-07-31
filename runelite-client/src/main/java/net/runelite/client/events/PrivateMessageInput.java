@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,31 +22,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.events;
 
-package net.runelite.client;
+import lombok.Data;
 
-import java.io.IOException;
-import org.junit.Test;
-
-/**
- *
- * @author Adam
- */
-public class ConfigLoaderTest
+@Data
+public abstract class PrivateMessageInput
 {
-	@Test
-	public void test() throws IOException
-	{
-		ConfigLoader loader = new ConfigLoader();
-		loader.fetch();
+	private final String target;
+	private final String message;
 
-		for (String key : loader.getProperties().keySet())
-			System.out.println(key + ": " + loader.getProperty(key));
-
-		System.out.println("Applet properties:");
-
-		for (String key : loader.getAppletProperties().keySet())
-			System.out.println(key + ": " + loader.getAppletProperty(key));
-	}
-
+	public abstract void resume();
 }

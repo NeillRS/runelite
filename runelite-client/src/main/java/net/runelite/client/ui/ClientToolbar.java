@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2017-2018, Adam <Adam@sigterm.info>
- * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,25 +25,24 @@
 package net.runelite.client.ui;
 
 import com.google.common.eventbus.EventBus;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.TreeSet;
+import java.util.HashSet;
+import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import net.runelite.client.events.TitleToolbarButtonAdded;
-import net.runelite.client.events.TitleToolbarButtonRemoved;
+import net.runelite.client.events.NavigationButtonAdded;
+import net.runelite.client.events.NavigationButtonRemoved;
 
 /**
- * Title toolbar buttons holder.
+ * Plugin toolbar buttons holder.
  */
 @Singleton
-public class TitleToolbar
+public class ClientToolbar
 {
 	private final EventBus eventBus;
-	private final TreeSet<NavigationButton> buttons = new TreeSet<>(Comparator.comparing(NavigationButton::getTooltip));
+	private final Set<NavigationButton> buttons = new HashSet<>();
 
 	@Inject
-	private TitleToolbar(final EventBus eventBus)
+	private ClientToolbar(final EventBus eventBus)
 	{
 		this.eventBus = eventBus;
 	}
@@ -63,8 +61,7 @@ public class TitleToolbar
 
 		if (buttons.add(button))
 		{
-			int index = buttons.headSet(button).size();
-			eventBus.post(new TitleToolbarButtonAdded(button, index));
+			eventBus.post(new NavigationButtonAdded(button));
 		}
 	}
 
@@ -75,28 +72,9 @@ public class TitleToolbar
 	 */
 	public void removeNavigation(final NavigationButton button)
 	{
-		int index = buttons.headSet(button).size();
-
 		if (buttons.remove(button))
 		{
-			eventBus.post(new TitleToolbarButtonRemoved(button, index));
-		}
-	}
-
-	/**
-	 * Refresh all buttons
-	 */
-	public void refresh()
-	{
-		final Iterator<NavigationButton> iterator = buttons.iterator();
-		int index = 0;
-
-		while (iterator.hasNext())
-		{
-			final NavigationButton button = iterator.next();
-			eventBus.post(new TitleToolbarButtonRemoved(button, index));
-			eventBus.post(new TitleToolbarButtonAdded(button, index));
-			index++;
+			eventBus.post(new NavigationButtonRemoved(button));
 		}
 	}
 }

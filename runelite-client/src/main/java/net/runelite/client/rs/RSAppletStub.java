@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
  * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
  * All rights reserved.
  *
@@ -22,14 +23,58 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.events;
+package net.runelite.client.rs;
 
-import lombok.Value;
-import net.runelite.client.ui.NavigationButton;
+import java.applet.AppletContext;
+import java.applet.AppletStub;
+import java.net.MalformedURLException;
+import java.net.URL;
+import lombok.RequiredArgsConstructor;
 
-@Value
-public class TitleToolbarButtonRemoved
+@RequiredArgsConstructor
+class RSAppletStub implements AppletStub
 {
-	private NavigationButton button;
-	private int index;
+	private final RSConfig config;
+
+	@Override
+	public boolean isActive()
+	{
+		return true;
+	}
+
+	@Override
+	public URL getDocumentBase()
+	{
+		return getCodeBase();
+	}
+
+	@Override
+	public URL getCodeBase()
+	{
+		try
+		{
+			return new URL(config.getCodeBase());
+		}
+		catch (MalformedURLException ex)
+		{
+			return null;
+		}
+	}
+
+	@Override
+	public String getParameter(String name)
+	{
+		return config.getAppletProperties().get(name);
+	}
+
+	@Override
+	public AppletContext getAppletContext()
+	{
+		return null;
+	}
+
+	@Override
+	public void appletResize(int width, int height)
+	{
+	}
 }

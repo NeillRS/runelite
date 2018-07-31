@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,66 +22,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.ui;
 
-import com.google.common.collect.ComparisonChain;
-import com.google.common.eventbus.EventBus;
-import java.util.TreeSet;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import net.runelite.client.events.PluginToolbarButtonAdded;
-import net.runelite.client.events.PluginToolbarButtonRemoved;
+package net.runelite.client.rs;
+
+import java.io.IOException;
+import okhttp3.OkHttpClient;
+import org.junit.Test;
 
 /**
- * Plugin toolbar buttons holder.
+ *
+ * @author Adam
  */
-@Singleton
-public class PluginToolbar
+public class ClientConfigLoaderTest
 {
-	private final EventBus eventBus;
-	private final TreeSet<NavigationButton> buttons = new TreeSet<>((a, b) ->
-		ComparisonChain.start()
-			.compare(a.getPriority(), b.getPriority())
-			.compare(a.getTooltip(), b.getTooltip())
-			.result());
-
-	@Inject
-	private PluginToolbar(final EventBus eventBus)
+	@Test
+	public void test() throws IOException
 	{
-		this.eventBus = eventBus;
-	}
+		final ClientConfigLoader loader = new ClientConfigLoader(new OkHttpClient());
+		final RSConfig config = loader.fetch();
 
-	/**
-	 * Add navigation.
-	 *
-	 * @param button the button
-	 */
-	public void addNavigation(final NavigationButton button)
-	{
-		if (buttons.contains(button))
+		for (String key : config.getClassLoaderProperties().keySet())
 		{
-			return;
+			System.out.println(key + ": " + config.getClassLoaderProperties().get(key));
 		}
 
-		if (buttons.add(button))
+		System.out.println("Applet properties:");
+
+		for (String key : config.getAppletProperties().keySet())
 		{
-			int index = buttons.headSet(button).size();
-			eventBus.post(new PluginToolbarButtonAdded(button, index));
+			System.out.println(key + ": " + config.getAppletProperties().get(key));
 		}
 	}
 
-	/**
-	 * Remove navigation.
-	 *
-	 * @param button the button
-	 */
-	public void removeNavigation(final NavigationButton button)
-	{
-		int index = buttons.headSet(button).size();
-
-		if (buttons.remove(button))
-		{
-			eventBus.post(new PluginToolbarButtonRemoved(button, index));
-		}
-	}
 }

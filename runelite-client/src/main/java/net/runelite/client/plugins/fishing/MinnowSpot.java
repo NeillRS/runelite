@@ -22,11 +22,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.events;
+package net.runelite.client.plugins.fishing;
 
-import lombok.Data;
+import java.time.Instant;
+import lombok.AllArgsConstructor;
+import lombok.Value;
+import net.runelite.api.coords.WorldPoint;
 
-@Data
-public class ClientUILoaded
+@AllArgsConstructor
+@Value
+class MinnowSpot
 {
+	private final WorldPoint loc;
+	private final Instant time;
 }
