@@ -38,6 +38,8 @@ public class GraphicID
 	public static final int VENGEANCE_OTHER = 725;
 	public static final int VENGEANCE = 726;
 	public static final int STAFF_OF_THE_DEAD = 1228;
+	public static final int SNOW_PARTICLES_ID = 1311;
 	public static final int IMBUED_HEART = 1316;
 	public static final int FLYING_FISH = 1387;
+
 }

@@ -14110,6 +14110,7 @@ public final class ObjectID
 	public static final int SACK_26678 = 26678;
 	public static final int ROCKFALL = 26679;
 	public static final int ROCKFALL_26680 = 26680;
+	public static final int NULL_26690 = 26690;
 	public static final int MYSTIC_SYMBOL = 26692;
 	public static final int MYSTIC_SYMBOL_26693 = 26693;
 	public static final int MARKER = 26694;
