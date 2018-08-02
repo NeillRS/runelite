@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Abex
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,68 +22,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.util;
+package net.runelite.client.events;
 
-import java.awt.event.KeyEvent;
-import java.util.function.Supplier;
-import lombok.RequiredArgsConstructor;
-import net.runelite.client.config.Keybind;
-import net.runelite.client.input.KeyListener;
+import java.util.Collection;
+import lombok.Value;
+import net.runelite.api.NPC;
+import net.runelite.client.game.ItemStack;
 
-@RequiredArgsConstructor
-public abstract class HotkeyListener implements KeyListener
+@Value
+public class NpcLootReceived
 {
-	private final Supplier<Keybind> keybind;
-
-	private boolean isPressed = false;
-
-	private boolean isConsumingTyped = false;
-
-	@Override
-	public void keyTyped(KeyEvent e)
-	{
-		if (isConsumingTyped)
-		{
-			e.consume();
-		}
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		if (keybind.get().matches(e))
-		{
-			boolean wasPressed = isPressed;
-			isPressed = true;
-			if (!wasPressed)
-			{
-				hotkeyPressed();
-			}
-			if (Keybind.getModifierForKeyCode(e.getKeyCode()) == null)
-			{
-				isConsumingTyped = true;
-				// Only consume non modifier keys
-				e.consume();
-			}
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e)
-	{
-		if (keybind.get().matches(e))
-		{
-			isPressed = false;
-			isConsumingTyped = false;
-			if (Keybind.getModifierForKeyCode(e.getKeyCode()) == null)
-			{
-				// Only consume non modifier keys
-				e.consume();
-			}
-		}
-	}
-
-	public void hotkeyPressed()
-	{
-	}
+	private final NPC npc;
+	private final Collection<ItemStack> items;
 }
